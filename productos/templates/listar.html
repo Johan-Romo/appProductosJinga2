@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="title">
+  <h2>Lista de Productos</h2>
+</div>
+<div class="containerList">
+  <a href="{% url 'crear_producto' %}" class="btn btn-primary">Crear Producto</a>
+  <a href="{% url 'importar_productos' %}" class="btn btn-primary">Importar CSV</a>
+  <a href="{% url 'exportar_productos' %}" class="btn btn-primary">Exportar CSV</a>
+  <a href="{% url 'graficar_productos' %}" class="btn btn-primary">Ver Gráfico</a>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for producto in productos %}
+      <tr>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.precio }}</td>
+        <td>{{ producto.cantidad }}</td>
+        <td>
+          <a href="{% url 'editar_producto' producto.pk %}" class="btn btn-sm btn-warning">Editar</a>
+          <a href="{% url 'eliminar_producto' producto.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if data %}
+<div class="graph-container">
+  <h3>Gráfico de Cantidad de Productos</h3>
+  <img src="data:image/png;base64,{{ data }}" alt="Gráfico de Barras">
+</div>
+{% endif %}
+{% endblock %}

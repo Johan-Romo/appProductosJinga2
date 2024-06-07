@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Importar Productos</h1>
+
+ 
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="archivo_csv" accept=".csv" required>
+    <button type="submit">Importar</button>
+  </form>
+
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<div class="volver">
+    <a href="{% url 'listar_productos' %}">Volver a la lista</a>
+ </div>
+{% endblock %}
